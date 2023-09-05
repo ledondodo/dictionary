@@ -1,2 +1,2 @@
-# dictionary
+# Dictionary
 Dictionary in terminal command line
