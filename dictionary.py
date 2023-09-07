@@ -23,19 +23,33 @@ def language():
 	return lan
 
 def definition(l,w):
-	print("\n(fr) Definitions of %s :\n" % w)
-	print(dict.meaning(l,w))
+	prGr("\n\n(%s) Definitions of '%s' :\n" % (l,w))
+	group = dict.meaning(l,w)[0]
+	meaning = dict.meaning(l,w)[1]
+	
+	if l!='en':
+		meaning = meaning.split('.')
+		meaning = meaning[len(meaning)//2:][0]
+	meaning = meaning.split(';') # separate groups
+	meaning = [x.strip() for x in meaning]
+
+	for i in range(len(dict.meaning(l,w)[0])):
+		prGr("%s:" % group[i])
+		print("%s\n" % meaning[i])
 
 def synonym(l,w):
-	print("\n(fr) Synonyms of %s :\n" % w)
+	print("\n(%s) Synonyms of %s :\n" % (l,w))
 	print(dict.synonym(l,w))
 
 def antonym(l,w):
-	print("\n(fr) Antonyms of %s :\n" % w)
+	print("\n(%s) Antonyms of %s :\n" % (l,w))
+	if l=='fr':
+		prGr("Sorry, antonyms are not available in french yet...")
+		return
 	print(dict.antonym(l,w))
 
 def translation(l,w):
-	print("\n(fr) Translation of %s :\n" % w)
+	print("\n(%s) Translation of %s :\n" % (l,w))
 	print(dict.translate(l,w))
 
 def switch(k):
