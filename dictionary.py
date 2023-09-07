@@ -8,11 +8,19 @@ def prGr(skk): print("\033[32m{}\033[00m" .format(skk))
 def prRed(skk): print("\033[31m{}\033[00m" .format(skk))
 
 def welcome():
-	prGr("Select: (1) (2) (3)")
-	prGr("(1) Select language: 'en', 'fr'")
-	prGr("(2) Select mode: 'def', 'syn', 'ant', 'tra'")
-	prGr("(3) Select word")
+	prGr("\nSelect: (1) (2)")
+	prRed("(*) Select language: 'lan' (default: french)")
+	prGr("(1) Select mode: 'def', 'syn', 'ant', 'tra'")
+	prGr("(2) Select word")
 	prGr("(quit 'q')")
+
+def language():
+	prRed("\nSelect language: 'fr', 'en'")
+	lan = input("Select: ")
+	if not(lan=='en' or lan=='fr'):
+		prRed("Error: wrong language")
+		return
+	return lan
 
 def definition(l,w):
 	print("\n(fr) Definitions of %s :\n" % w)
@@ -31,18 +39,25 @@ def translation(l,w):
 	print(dict.translate(l,w))
 
 def switch(k):
+	lan = 'fr'
 	keys = k.split()
-	if len(keys)>3: prRed("Error: too many words")
-
-	lan = keys[0]
-	mode = keys[1]
-	word = keys[2]
 
 	if 'q' in keys:
 		return
-	
-	if not(lan=='en' or lan=='fr'):
-		prRed("(1) Error: wrong language")
+	if 'lan' in keys:
+		lan = language()
+		welcome()
+		k = input("Select: ")
+
+	keys = k.split()
+	if len(keys)>2:
+		prRed("Error: too many words")
+		return
+	elif len(keys)==2:
+		mode = keys[0]
+		word = keys[1]
+	else:
+		prRed("Error: wrong key")
 		return
 
 	if mode=='def':
